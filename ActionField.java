@@ -12,13 +12,15 @@ public class ActionField extends JPanel {
     private final boolean COLORDED_MODE = false;
     private BattleField battleField;
     private Tank tank;
+    private Tank agressor;
     private Bullet bullet;
     private final String[] MOVE = { "Illegal move", "Move UP", "Move DOWN", "Move LEFT", "Move RIGHT" };
     private int step=1;
 
     public ActionField()throws Exception {
         battleField = new BattleField();
-        tank = new Tank(this, battleField);
+        tank = new BT7(this, battleField);
+        agressor = new BT7(this, battleField, Tank.position[(int)(Math.random()*3)],0, Direction.DOWN);
         bullet = new Bullet(-100, -100, Direction.UP);
 
         JFrame frame = new JFrame("BATTLE FIELD, DAY 2");
@@ -132,6 +134,20 @@ tank.clean();
             g.fillRect(tank.getX(), tank.getY() + 20, 34, 24);
         } else {
             g.fillRect(tank.getX() + 30, tank.getY() + 20, 34, 24);
+        }
+
+        g.setColor(new Color(255, 0, 0));
+        g.fillRect(agressor.getX(), agressor.getY(), 64, 64);
+
+        g.setColor(new Color(0, 255, 0));
+        if (agressor.getDirection().getDirection() == 1) {
+            g.fillRect(agressor.getX() + 20, agressor.getY(), 24, 34);
+        } else if (agressor.getDirection().getDirection() == 2) {
+            g.fillRect(agressor.getX() + 20, agressor.getY() + 30, 24, 34);
+        } else if (agressor.getDirection().getDirection() == 3) {
+            g.fillRect(agressor.getX(), agressor.getY() + 20, 34, 24);
+        } else {
+            g.fillRect(agressor.getX() + 30, agressor.getY() + 20, 34, 24);
         }
 
         g.setColor(new Color(255, 255, 0));

@@ -1,11 +1,15 @@
 package Tanks;
 
+import com.sun.prism.Graphics;
+
+import java.awt.*;
 import java.util.Random;
 
 /**
  * Created by 777 on 16.02.2016.
  */
 public class Tank {
+    final static int[] position = {0, 256, 512};
     private int speed = 10;
     private int x;
     private int y;
@@ -55,6 +59,7 @@ public class Tank {
         this.direction = direction;
 
     }
+
 
     public void turn(Direction direction) throws Exception {
         this.direction = direction;
@@ -154,6 +159,7 @@ public class Tank {
         updateY(-1000);
         af.repaint();
     }
+
 }
 
 
