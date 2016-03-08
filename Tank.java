@@ -154,7 +154,7 @@ public class Tank {
         turn(direction.getInstanse(1));
     }
 
-    private void destroy(){
+    public void destroy(){
         updateX(-1000);
         updateY(-1000);
         af.repaint();

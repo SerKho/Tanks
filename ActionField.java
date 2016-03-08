@@ -42,20 +42,20 @@ public class ActionField extends JPanel {
 //        tank.turn(Direction.RIGHT);
 //        System.out.println(tank.getDirection());
 //        Thread.sleep(5000);
-//        tank.fire();
+        tank.fire();
 //        Thread.sleep(5000);
 //        tank.move();
 //        Thread.sleep(10);
 //        System.out.println(tank.getDirection());
 //        tank.destroy();
 //        Thread.sleep(5000);
-//        tank.fire();
+        tank.fire();
 //        tank.move();
 //        tank.turn(4);
-//        tank.fire();
+        tank.fire();
 //        System.out.println(tank.getDirection());
 //        while(true){tank.moveRandom();}
-tank.clean();
+//tank.clean();
 
     }
 
@@ -66,7 +66,12 @@ tank.clean();
             if (battleField.scanQuadrant(bulletQuadrant(0), bulletQuadrant(2)).equals("B")) {
                 battleField.updateQuadrant(bulletQuadrant(0), bulletQuadrant(2), " ");
                 return true;
-            } else {
+            }
+            else if(getQuadrant(agressor.getX(), agressor.getY()).equals(getQuadrant(bullet.getX(), bullet.getY()))){
+                agressor.destroy();
+                return true;
+            }
+            else {
                 return false;
             }
         } else {
@@ -136,10 +141,10 @@ tank.clean();
             g.fillRect(tank.getX() + 30, tank.getY() + 20, 34, 24);
         }
 
-        g.setColor(new Color(255, 0, 0));
+        g.setColor(new Color(0, 255, 0));
         g.fillRect(agressor.getX(), agressor.getY(), 64, 64);
 
-        g.setColor(new Color(0, 255, 0));
+        g.setColor(new Color(255, 0, 0));
         if (agressor.getDirection().getDirection() == 1) {
             g.fillRect(agressor.getX() + 20, agressor.getY(), 24, 34);
         } else if (agressor.getDirection().getDirection() == 2) {
