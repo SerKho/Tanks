@@ -11,7 +11,7 @@ import java.awt.*;
 public class ActionField extends JPanel {
     private final boolean COLORDED_MODE = false;
     private BattleField battleField;
-    private Tank tank;
+    private Tank defender;
     private Tank agressor;
     private Bullet bullet;
     private final String[] MOVE = { "Illegal move", "Move UP", "Move DOWN", "Move LEFT", "Move RIGHT" };
@@ -19,8 +19,8 @@ public class ActionField extends JPanel {
 
     public ActionField()throws Exception {
         battleField = new BattleField();
-        tank = new BT7(this, battleField);
-        agressor = new BT7(this, battleField, Tank.position[(int)(Math.random()*3)],0, Direction.DOWN);
+        defender = new BT7(this, battleField);
+        agressor = new Tiger(this, battleField, Tank.position[(int)(Math.random()*3)],0, Direction.DOWN);
         bullet = new Bullet(-100, -100, Direction.UP);
 
         JFrame frame = new JFrame("BATTLE FIELD, DAY 2");
@@ -33,29 +33,30 @@ public class ActionField extends JPanel {
     }
 
     public void runTheGame() throws Exception {
-//        tank.turn(Direction.UP);
-//        System.out.println(tank.getDirection());
-//        tank.turn(Direction.LEFT);
-//        System.out.println(tank.getDirection());
-//        tank.turn(Direction.DOWN);
-//        System.out.println(tank.getDirection());
-//        tank.turn(Direction.RIGHT);
-//        System.out.println(tank.getDirection());
+//        defender.turn(Direction.UP);
+//        System.out.println(defender.getDirection());
+//        defender.turn(Direction.LEFT);
+//        System.out.println(defender.getDirection());
+//        defender.turn(Direction.DOWN);
+//        System.out.println(defender.getDirection());
+//        defender.turn(Direction.RIGHT);
+//        System.out.println(defender.getDirection());
 //        Thread.sleep(5000);
-        tank.fire();
+        defender.fire();
+        defender.fire();
 //        Thread.sleep(5000);
-//        tank.move();
+//        defender.move();
 //        Thread.sleep(10);
-//        System.out.println(tank.getDirection());
-//        tank.destroy();
+//        System.out.println(defender.getDirection());
+//        defender.destroy();
 //        Thread.sleep(5000);
-        tank.fire();
-//        tank.move();
-//        tank.turn(4);
-        tank.fire();
-//        System.out.println(tank.getDirection());
-//        while(true){tank.moveRandom();}
-//tank.clean();
+        defender.fire();
+//        defender.move();
+//        defender.turn(4);
+        defender.fire();
+//        System.out.println(defender.getDirection());
+//        while(true){defender.moveRandom();}
+//defender.clean();
 
     }
 
@@ -67,14 +68,13 @@ public class ActionField extends JPanel {
                 battleField.updateQuadrant(bulletQuadrant(0), bulletQuadrant(2), " ");
                 return true;
             }
-            else if(getQuadrant(agressor.getX(), agressor.getY()).equals(getQuadrant(bullet.getX(), bullet.getY()))){
-                agressor.destroy();
-                return true;
-            }
-            else {
-                return false;
-            }
-        } else {
+            if (getQuadrant(agressor.getX(), agressor.getY()).equals(getQuadrant(bullet.getX(), bullet.getY()))) {
+                    agressor.destroy();
+                    return true;
+            }else{
+                    return false;
+                }
+        }else {
             return false;
         }
     }
@@ -128,17 +128,17 @@ public class ActionField extends JPanel {
         }
 
         g.setColor(new Color(255, 0, 0));
-        g.fillRect(tank.getX(), tank.getY(), 64, 64);
+        g.fillRect(defender.getX(), defender.getY(), 64, 64);
 
         g.setColor(new Color(0, 255, 0));
-        if (tank.getDirection().getDirection() == 1) {
-            g.fillRect(tank.getX() + 20, tank.getY(), 24, 34);
-        } else if (tank.getDirection().getDirection() == 2) {
-            g.fillRect(tank.getX() + 20, tank.getY() + 30, 24, 34);
-        } else if (tank.getDirection().getDirection() == 3) {
-            g.fillRect(tank.getX(), tank.getY() + 20, 34, 24);
+        if (defender.getDirection().getDirection() == 1) {
+            g.fillRect(defender.getX() + 20, defender.getY(), 24, 34);
+        } else if (defender.getDirection().getDirection() == 2) {
+            g.fillRect(defender.getX() + 20, defender.getY() + 30, 24, 34);
+        } else if (defender.getDirection().getDirection() == 3) {
+            g.fillRect(defender.getX(), defender.getY() + 20, 34, 24);
         } else {
-            g.fillRect(tank.getX() + 30, tank.getY() + 20, 34, 24);
+            g.fillRect(defender.getX() + 30, defender.getY() + 20, 34, 24);
         }
 
         g.setColor(new Color(0, 255, 0));
@@ -159,27 +159,27 @@ public class ActionField extends JPanel {
         g.fillRect(bullet.getX(), bullet.getY(), 14, 14);
     }
 
-    public void processTurn(Tank tank) throws Exception {
+    public void processTurn(Tank defender) throws Exception {
 
         repaint();
     }
 
-    public void processMove(Tank tank) throws Exception {
+    public void processMove(Tank defender) throws Exception {
             int covered = 0;
             while (covered < 64) {
-                tank.updateX(vertOrHor(tank.getDirection().getDirection()) * positivOrNegativ(tank.getDirection().getDirection()) * step);
-                tank.updateY((1 - vertOrHor(tank.getDirection().getDirection())) * positivOrNegativ(tank.getDirection().getDirection()) * step);
-                System.out.println("TankX=" + tank.getX() + "; TankY=" + tank.getY() + "." + MOVE[tank.getDirection().getDirection()]);
+                defender.updateX(vertOrHor(defender.getDirection().getDirection()) * positivOrNegativ(defender.getDirection().getDirection()) * step);
+                defender.updateY((1 - vertOrHor(defender.getDirection().getDirection())) * positivOrNegativ(defender.getDirection().getDirection()) * step);
+                System.out.println("TankX=" + defender.getX() + "; TankY=" + defender.getY() + "." + MOVE[defender.getDirection().getDirection()]);
                 covered += step;
                 repaint();
-                Thread.sleep(tank.getSpeed());
+                Thread.sleep(defender.getSpeed());
             }
 
     }
 
     private int movePossibility(int direction) {
-        if ((direction < 1 || direction > 4) || (direction == 1 && tank.getY() == 0) || (direction == 2 && tank.getY() == 512)
-                || (direction == 3 && tank.getX() == 0) || (direction == 4 && tank.getX() == 512)) {
+        if ((direction < 1 || direction > 4) || (direction == 1 && defender.getY() == 0) || (direction == 2 && defender.getY() == 512)
+                || (direction == 3 && defender.getX() == 0) || (direction == 4 && defender.getX() == 512)) {
             return 0;
         } else {
             return 1;
@@ -189,13 +189,13 @@ public class ActionField extends JPanel {
     public void processFire(Bullet bullet) throws Exception {
         this.bullet = bullet;
         while (bullet.getY() >= 0 && bullet.getY() <= 576 && bullet.getX() >= 0 && bullet.getX() <= 576) {
-            bullet.updateX(vertOrHor(tank.getDirection().getDirection()) * positivOrNegativ(tank.getDirection().getDirection()) * bullet.getSpeed());
-            bullet.updateY((1 - vertOrHor(tank.getDirection().getDirection())) * positivOrNegativ(tank.getDirection().getDirection()) * bullet.getSpeed());
+            bullet.updateX(vertOrHor(defender.getDirection().getDirection()) * positivOrNegativ(defender.getDirection().getDirection()) * bullet.getSpeed());
+            bullet.updateY((1 - vertOrHor(defender.getDirection().getDirection())) * positivOrNegativ(defender.getDirection().getDirection()) * bullet.getSpeed());
             if (processInterception() == true) {
                 break;
             }
             repaint();
-            Thread.sleep(tank.getSpeed());
+            Thread.sleep(defender.getSpeed());
         }
         bullet.destroy();
         repaint();

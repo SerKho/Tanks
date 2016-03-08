@@ -8,7 +8,6 @@ import Tanks.ActionField;
 public class Launcher {
 
     public static void main(String[] args) throws Exception {
-//        System.out.println( Tank.position[(int)(Math.random()*3)]);
         ActionField af = new ActionField();
         af.runTheGame();
     }
