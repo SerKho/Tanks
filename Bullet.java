@@ -8,11 +8,13 @@ public class Bullet {
     private int x;
     private int y;
     private Direction direction;
+    private AbstractTank abstractTank;
 
-    Bullet (int x, int y, Direction direction){
+    Bullet (int x, int y, Direction direction, AbstractTank abstractTank){
         this.x = x;
         this.y = y;
         this.direction = direction;
+        this.abstractTank = abstractTank;
     }
 
     public int getSpeed() {
@@ -25,6 +27,10 @@ public class Bullet {
 
     public Direction getDirection() {
         return direction;
+    }
+
+    public AbstractTank getAbstractTank() {
+        return abstractTank;
     }
 
     public int getY() {

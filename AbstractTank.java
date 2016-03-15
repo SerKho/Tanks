@@ -1,15 +1,12 @@
 package Tanks;
 
-import com.sun.prism.Graphics;
-
-import java.awt.*;
 import java.util.Random;
 
 /**
  * Created by 777 on 16.02.2016.
  */
-public class Tank {
-    final static int[] position = {0, 256, 512};
+public abstract class AbstractTank {
+    final static int[] POSITION = {0, 256, 512};
     private int speed = 10;
     private int x;
     private int y;
@@ -47,11 +44,11 @@ public class Tank {
     }
 
 
-    Tank(ActionField af, BattleField bf){
+    AbstractTank(ActionField af, BattleField bf){
         this(af,bf,0,512, Direction.UP);
     }
 
-    Tank(ActionField af, BattleField bf, int x, int y, Direction direction) {
+    AbstractTank(ActionField af, BattleField bf, int x, int y, Direction direction) {
         this.af = af;
         this.bf = bf;
         this.x = x;
@@ -72,7 +69,7 @@ public class Tank {
     }
 
     public void fire() throws Exception {
-        Bullet bullet = new Bullet(x + 25, y + 25, direction);
+        Bullet bullet = new Bullet(x + 25, y + 25, direction, this);
         af.processFire(bullet);
     }
 

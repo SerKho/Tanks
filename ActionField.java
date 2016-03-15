@@ -1,7 +1,5 @@
 package Tanks;
 
-import com.sun.javafx.font.directwrite.DWFactory;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,8 +9,8 @@ import java.awt.*;
 public class ActionField extends JPanel {
     private final boolean COLORDED_MODE = false;
     private BattleField battleField;
-    private Tank defender;
-    private Tank agressor;
+    private AbstractTank defender;
+    private AbstractTank agressor;
     private Bullet bullet;
     private final String[] MOVE = { "Illegal move", "Move UP", "Move DOWN", "Move LEFT", "Move RIGHT" };
     private int step=1;
@@ -20,8 +18,8 @@ public class ActionField extends JPanel {
     public ActionField()throws Exception {
         battleField = new BattleField();
         defender = new BT7(this, battleField);
-        agressor = new Tiger(this, battleField, Tank.position[(int)(Math.random()*3)],0, Direction.DOWN);
-        bullet = new Bullet(-100, -100, Direction.UP);
+        agressor = new Tiger(this, battleField, AbstractTank.POSITION[(int)(Math.random()*3)],0, Direction.DOWN);
+        bullet = new Bullet(-100, -100, Direction.UP, this.defender);
 
         JFrame frame = new JFrame("BATTLE FIELD, DAY 2");
         frame.setLocation(400, 100);
@@ -64,17 +62,25 @@ public class ActionField extends JPanel {
 
     private boolean processInterception() {
         if ((bullet.getX() >= 0 && bullet.getX() <= 576) && (bullet.getY() >= 0 && bullet.getY() <= 576)) {
-            if (battleField.scanQuadrant(bulletQuadrant(0), bulletQuadrant(2)).equals("B")) {
+            if (getQuadrant(bullet.getAbstractTank().getX(), bullet.getAbstractTank().getY()).equals(getQuadrant(bullet.getX(), bullet.getY()))) {
+                return false;
+            } else if (battleField.scanQuadrant(bulletQuadrant(0), bulletQuadrant(2)).equals("B")) {
                 battleField.updateQuadrant(bulletQuadrant(0), bulletQuadrant(2), " ");
                 return true;
+            } else if (getQuadrant(agressor.getX(), agressor.getY()).equals(getQuadrant(bullet.getX(), bullet.getY()))) {
+                agressor.destroy();
+                return true;
             }
-            if (getQuadrant(agressor.getX(), agressor.getY()).equals(getQuadrant(bullet.getX(), bullet.getY()))) {
-                    agressor.destroy();
-                    return true;
-            }else{
-                    return false;
-                }
-        }else {
+//            }else{
+//                    return false;
+//                }
+            else if (getQuadrant(defender.getX(), defender.getY()).equals(getQuadrant(bullet.getX(), bullet.getY()))) {
+                agressor.destroy();
+                return true;
+            } else {
+                return false;
+            }
+        }else{
             return false;
         }
     }
@@ -159,12 +165,12 @@ public class ActionField extends JPanel {
         g.fillRect(bullet.getX(), bullet.getY(), 14, 14);
     }
 
-    public void processTurn(Tank defender) throws Exception {
+    public void processTurn(AbstractTank defender) throws Exception {
 
         repaint();
     }
 
-    public void processMove(Tank defender) throws Exception {
+    public void processMove(AbstractTank defender) throws Exception {
             int covered = 0;
             while (covered < 64) {
                 defender.updateX(vertOrHor(defender.getDirection().getDirection()) * positivOrNegativ(defender.getDirection().getDirection()) * step);
