@@ -17,7 +17,7 @@ public class ActionField extends JPanel {
 
     public ActionField()throws Exception {
         battleField = new BattleField();
-        defender = new BT7(this, battleField);
+        defender = new T34(this, battleField);
         agressor = new Tiger(this, battleField, AbstractTank.POSITION[(int)(Math.random()*3)],0, Direction.DOWN);
         bullet = new Bullet(-100, -100, Direction.UP, this.defender);
 
