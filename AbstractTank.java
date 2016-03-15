@@ -1,11 +1,12 @@
 package Tanks;
 
+import java.awt.*;
 import java.util.Random;
 
 /**
  * Created by 777 on 16.02.2016.
  */
-public abstract class AbstractTank {
+public abstract class AbstractTank implements Drawable, Destroyable {
     final static int[] POSITION = {0, 256, 512};
     private int speed = 10;
     private int x;
@@ -155,6 +156,22 @@ public abstract class AbstractTank {
         updateX(-1000);
         updateY(-1000);
         af.repaint();
+    }
+
+    public void draw(Graphics g){
+        g.setColor(new Color(255, 0, 0));
+        g.fillRect(this.getX(), this.getY(), 64, 64);
+
+        g.setColor(new Color(0, 255, 0));
+        if (this.getDirection().getDirection() == 1) {
+            g.fillRect(this.getX() + 20, this.getY(), 24, 34);
+        } else if (this.getDirection().getDirection() == 2) {
+            g.fillRect(this.getX() + 20, this.getY() + 30, 24, 34);
+        } else if (this.getDirection().getDirection() == 3) {
+            g.fillRect(this.getX(), this.getY() + 20, 34, 24);
+        } else {
+            g.fillRect(this.getX() + 30, this.getY() + 20, 34, 24);
+        }
     }
 
 }

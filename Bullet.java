@@ -1,9 +1,11 @@
 package Tanks;
 
+import java.awt.*;
+
 /**
  * Created by 777 on 15.02.2016.
  */
-public class Bullet {
+public class Bullet implements Drawable, Destroyable{
     private int speed = 5;
     private int x;
     private int y;
@@ -48,5 +50,10 @@ public class Bullet {
     public void destroy(){
         y = -100;
         x = -100;
+    }
+
+    public void draw(Graphics g){
+        g.setColor(new Color(255, 255, 0));
+        g.fillRect(this.getX(), this.getY(), 14, 14);
     }
 }
