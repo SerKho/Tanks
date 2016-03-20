@@ -1,5 +1,9 @@
 package Tanks;
 
+import Tanks.bfobjects.Brick;
+import Tanks.bfobjects.Eagle;
+import Tanks.bfobjects.Rock;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,7 +20,7 @@ public class ActionField extends JPanel {
     private int step=1;
 
     public ActionField()throws Exception {
-        battleField = new BattleField();
+        battleField = new BattleField(this);
         defender = new T34(this, battleField);
         agressor = new Tiger(this, battleField, AbstractTank.POSITION[(int)(Math.random()*3)],0, Direction.DOWN);
         bullet = new Bullet(-100, -100, Direction.UP, this.defender);
@@ -62,11 +66,22 @@ public class ActionField extends JPanel {
 
     private boolean processInterception() {
         if ((bullet.getX() >= 0 && bullet.getX() <= 576) && (bullet.getY() >= 0 && bullet.getY() <= 576)) {
-            if (getQuadrant(bullet.getAbstractTank().getX(), bullet.getAbstractTank().getY()).equals(getQuadrant(bullet.getX(), bullet.getY()))) {
+            if (getQuadrant(bullet.getAbstractTank().getX(), bullet.getAbstractTank().getY()).equals
+                    (getQuadrant(bullet.getX(), bullet.getY()))) {
                 return false;
-            } else if (battleField.scanQuadrant(bulletQuadrant(0), bulletQuadrant(2)).equals("B")) {
-                battleField.updateQuadrant(bulletQuadrant(0), bulletQuadrant(2), " ");
+            } else if ((battleField.scanBattleField(bulletQuadrant(0),bulletQuadrant(2)) instanceof Brick) &&
+                    ((battleField.scanBattleField(bulletQuadrant(0),bulletQuadrant(2)).getX()>0))) {
+                ((Brick) battleField.scanBattleField(bulletQuadrant(0),bulletQuadrant(2))).destroy();
                 return true;
+            } else if ((battleField.scanBattleField(bulletQuadrant(0),bulletQuadrant(2)) instanceof Rock) &&
+            ((battleField.scanBattleField(bulletQuadrant(0),bulletQuadrant(2)).getX()>0))) {
+                ((Rock) battleField.scanBattleField(bulletQuadrant(0),bulletQuadrant(2))).destroy();
+                return true;
+            } else if ((battleField.scanBattleField(bulletQuadrant(0),bulletQuadrant(2)) instanceof Eagle) &&
+            ((battleField.scanBattleField(bulletQuadrant(0),bulletQuadrant(2)).getX()>0))) {
+                ((Eagle) battleField.scanBattleField(bulletQuadrant(0),bulletQuadrant(2))).destroy();
+                return true;
+
             } else if (getQuadrant(agressor.getX(), agressor.getY()).equals(getQuadrant(bullet.getX(), bullet.getY()))) {
                 agressor.destroy();
                 return true;
@@ -119,14 +134,7 @@ public class ActionField extends JPanel {
 
         for (int j = 0; j < battleField.getDimensionY(); j++) {
             for (int k = 0; k < battleField.getDimensionY(); k++) {
-                if (battleField.scanQuadrant(j, k).equals("B")) {
-                    String coordinates = getQuadrantXY(j + 1, k + 1);
-                    int separator = coordinates.indexOf("_");
-                    int y = Integer.parseInt(coordinates.substring(0, separator));
-                    int x = Integer.parseInt(coordinates.substring(separator + 1));
-                    g.setColor(new Color(0, 0, 255));
-                    g.fillRect(x, y, 64, 64);
-                }
+                battleField.scanBattleField(j, k).draw(g);
             }
         }
 

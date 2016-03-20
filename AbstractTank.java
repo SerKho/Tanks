@@ -86,20 +86,20 @@ public abstract class AbstractTank implements Drawable, Destroyable {
         }
     }
 
-    public void moveToQuadrant(int v, int h)throws Exception {
-        int x = Integer.parseInt((af.getQuadrantXY(v, h)).substring(0, (af.getQuadrantXY(v, h)).indexOf("_")));
-        int y = Integer.parseInt((af.getQuadrantXY(v, h)).substring((af.getQuadrantXY(v, h)).indexOf("_") + 1));
-        while (x != getX()) {
-            turn(direction.getInstanse(2 + moveAnalize(x, getX())));
-            fireWhileMove(1, x, 1);
-            move();
-        }
-        while (y != getY()) {
-            turn(direction.getInstanse(moveAnalize(y, getY())));
-            fireWhileMove(0, y, 1);
-            move();
-        }
-    }
+//    public void moveToQuadrant(int v, int h)throws Exception {
+//        int x = Integer.parseInt((af.getQuadrantXY(v, h)).substring(0, (af.getQuadrantXY(v, h)).indexOf("_")));
+//        int y = Integer.parseInt((af.getQuadrantXY(v, h)).substring((af.getQuadrantXY(v, h)).indexOf("_") + 1));
+//        while (x != getX()) {
+//            turn(direction.getInstanse(2 + moveAnalize(x, getX())));
+//            fireWhileMove(1, x, 1);
+//            move();
+//        }
+//        while (y != getY()) {
+//            turn(direction.getInstanse(moveAnalize(y, getY())));
+//            fireWhileMove(0, y, 1);
+//            move();
+//        }
+//    }
 
     int moveAnalize(int coordinate, int tankCoordinate) {
         if (coordinate < tankCoordinate) {
@@ -117,40 +117,40 @@ public abstract class AbstractTank implements Drawable, Destroyable {
         }
     }
 
-    void fireWhileMove(int a, int b, int c) throws Exception {
-        if (bf.scanQuadrant(Integer.parseInt(af.getQuadrant(getX() + a * c * analizeNextQuadrant(moveAnalize(b, getX())),
-                getY() + (1 - a) * c * analizeNextQuadrant(moveAnalize(b, getY()))).substring(0,1)),
-                Integer.parseInt(af.getQuadrant(getX() + a * c * analizeNextQuadrant(moveAnalize(b, getX())),
-                getY() + (1 - a) * c	* analizeNextQuadrant(moveAnalize(b, getY()))).substring(2))).equals("B"))
-        {
-            fire();
-        }
-    }
+//    void fireWhileMove(int a, int b, int c) throws Exception {
+//        if (bf.scanQuadrant(Integer.parseInt(af.getQuadrant(getX() + a * c * analizeNextQuadrant(moveAnalize(b, getX())),
+//                getY() + (1 - a) * c * analizeNextQuadrant(moveAnalize(b, getY()))).substring(0,1)),
+//                Integer.parseInt(af.getQuadrant(getX() + a * c * analizeNextQuadrant(moveAnalize(b, getX())),
+//                getY() + (1 - a) * c	* analizeNextQuadrant(moveAnalize(b, getY()))).substring(2))).equals("B"))
+//        {
+//            fire();
+//        }
+//    }
 
-    void clean() throws Exception {
-        fireWhileMove(1, 0, 0);
-        moveToQuadrant(1, 9);
-        for (int i = 0; i < 9; i++) {
-            int countB = 0;
-            for (int j = 0; j < 9; j++) {
-                if (bf.scanQuadrant(j, i).equals("B")) {
-                    countB += 1;
-                }
-            }
-            if (countB > 0 && i > 0) {
-                if (bf.scanQuadrant(8,i).equals("B")) {
-                    countB -= 1;
-                }
-                moveToQuadrant(i + 1, 9);
-                turn(direction.getInstanse(1));
-            }
-            while (countB > 0) {
-                fire();
-                countB--;
-            }
-        }
-        turn(direction.getInstanse(1));
-    }
+//    void clean() throws Exception {
+//        fireWhileMove(1, 0, 0);
+//        moveToQuadrant(1, 9);
+//        for (int i = 0; i < 9; i++) {
+//            int countB = 0;
+//            for (int j = 0; j < 9; j++) {
+//                if (bf.scanQuadrant(j, i).equals("B")) {
+//                    countB += 1;
+//                }
+//            }
+//            if (countB > 0 && i > 0) {
+//                if (bf.scanQuadrant(8,i).equals("B")) {
+//                    countB -= 1;
+//                }
+//                moveToQuadrant(i + 1, 9);
+//                turn(direction.getInstanse(1));
+//            }
+//            while (countB > 0) {
+//                fire();
+//                countB--;
+//            }
+//        }
+//        turn(direction.getInstanse(1));
+//    }
 
     public void destroy(){
         updateX(-1000);
