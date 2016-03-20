@@ -1,4 +1,11 @@
-package Tanks;
+package Tanks.tankobjects;
+
+import Tanks.ActionField;
+import Tanks.Bullet;
+import Tanks.enums.Direction;
+import Tanks.interfaces.BattleField;
+import Tanks.interfaces.Destroyable;
+import Tanks.interfaces.Drawable;
 
 import java.awt.*;
 import java.util.Random;

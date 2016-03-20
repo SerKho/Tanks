@@ -1,4 +1,4 @@
-package Tanks;
+package Tanks.enums;
 
 /**
  * Created by 777 on 02.03.2016.

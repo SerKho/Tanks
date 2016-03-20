@@ -1,8 +1,7 @@
 package Tanks.bfobjects;
 
 import Tanks.ActionField;
-import Tanks.BattleField;
-import Tanks.Drawable;
+import Tanks.interfaces.Drawable;
 
 import java.awt.*;
 

@@ -1,5 +1,6 @@
-package Tanks;
+package Tanks.interfaces;
 
+import Tanks.ActionField;
 import Tanks.bfobjects.BFObject;
 import Tanks.bfobjects.Brick;
 import Tanks.bfobjects.Eagle;

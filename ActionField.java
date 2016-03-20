@@ -3,6 +3,11 @@ package Tanks;
 import Tanks.bfobjects.Brick;
 import Tanks.bfobjects.Eagle;
 import Tanks.bfobjects.Rock;
+import Tanks.enums.Direction;
+import Tanks.interfaces.BattleField;
+import Tanks.tankobjects.AbstractTank;
+import Tanks.tankobjects.T34;
+import Tanks.tankobjects.Tiger;
 
 import javax.swing.*;
 import java.awt.*;

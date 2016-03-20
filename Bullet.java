@@ -1,11 +1,16 @@
 package Tanks;
 
+import Tanks.enums.Direction;
+import Tanks.interfaces.Destroyable;
+import Tanks.interfaces.Drawable;
+import Tanks.tankobjects.AbstractTank;
+
 import java.awt.*;
 
 /**
  * Created by 777 on 15.02.2016.
  */
-public class Bullet implements Drawable, Destroyable{
+public class Bullet implements Drawable, Destroyable {
     private int speed = 5;
     private int x;
     private int y;

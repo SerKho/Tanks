@@ -1,7 +1,7 @@
 package Tanks.bfobjects;
 
 import Tanks.ActionField;
-import Tanks.Destroyable;
+import Tanks.interfaces.Destroyable;
 
 import java.awt.*;
 

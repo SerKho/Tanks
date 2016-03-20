@@ -1,4 +1,8 @@
-package Tanks;
+package Tanks.tankobjects;
+
+import Tanks.ActionField;
+import Tanks.enums.Direction;
+import Tanks.interfaces.BattleField;
 
 /**
  * Created by 777 on 04.03.2016.
