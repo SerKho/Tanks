@@ -14,7 +14,7 @@ import java.util.Random;
  * Created by 777 on 16.02.2016.
  */
 public abstract class AbstractTank implements Drawable, Destroyable {
-    final static int[] POSITION = {0, 256, 512};
+    public final static int[] POSITION = {0, 256, 512};
     private int speed = 10;
     private int x;
     private int y;

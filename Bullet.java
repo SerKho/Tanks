@@ -17,7 +17,7 @@ public class Bullet implements Drawable, Destroyable {
     private Direction direction;
     private AbstractTank abstractTank;
 
-    Bullet (int x, int y, Direction direction, AbstractTank abstractTank){
+  public Bullet (int x, int y, Direction direction, AbstractTank abstractTank){
         this.x = x;
         this.y = y;
         this.direction = direction;
