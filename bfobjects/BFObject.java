@@ -11,6 +11,7 @@ import java.awt.*;
 public class BFObject implements Drawable{
     int x;
     int y;
+    boolean crossable;
     ActionField af;
 
     public int getX() {
@@ -29,6 +30,14 @@ public class BFObject implements Drawable{
         this.y = y;
     }
 
+    public boolean isCrossable() {
+        return crossable;
+    }
+
+    public void setCrossable(boolean crossable) {
+        this.crossable = crossable;
+    }
+
     public ActionField getAf() {
         return af;
     }
@@ -37,7 +46,7 @@ public class BFObject implements Drawable{
         this.af = af;
         this.x = (x-1)*64;
         this.y = (y-1)*64;
-
+        this.setCrossable(true);
     }
 
 

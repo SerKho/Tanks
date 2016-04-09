@@ -12,6 +12,7 @@ public class Rock extends BFObject implements Destroyable {
 
     public Rock(ActionField af, int x, int y){
         super(af,x,y);
+        this.setCrossable(false);
     }
 
     public void draw(Graphics g){

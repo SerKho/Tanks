@@ -12,6 +12,7 @@ public class Brick extends BFObject implements Destroyable{
 
     public Brick(ActionField af, int x, int y){
         super(af,x,y);
+        this.setCrossable(false);
     }
 
     public void draw(Graphics g){
@@ -22,8 +23,6 @@ public class Brick extends BFObject implements Destroyable{
     public void destroy(){
             this.setX(-1000);
             this.setY(-1000);
-//        BFObject a = new BFObject(getAf(),getX(),getY());
-//        this = (BFObject)a;
             this.getAf().repaint();
 
     }

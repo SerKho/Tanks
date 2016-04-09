@@ -10,12 +10,12 @@ import Tanks.interfaces.BattleField;
 public class Tiger extends AbstractTank {
     private int armor = 1;
 
-    public Tiger(ActionField af, BattleField bf, int x, int y, Direction direction){
-        super(af, bf, x, y, direction);
+    public Tiger(BattleField bf, int x, int y, Direction direction){
+        super(bf, x, y, direction);
     }
 
-    public Tiger(ActionField af, BattleField bf){
-        super(af, bf);
+    public Tiger(BattleField bf){
+        super(bf);
     }
 
     public int getArmor() {

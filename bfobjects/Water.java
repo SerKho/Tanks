@@ -11,6 +11,7 @@ public class Water extends BFObject {
 
     public Water(ActionField af, int x, int y){
         super(af, x, y);
+        this.setCrossable(false);
     }
 
     public void draw(Graphics g){
