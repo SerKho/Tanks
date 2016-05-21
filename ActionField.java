@@ -14,6 +14,8 @@ import Tanks.tankobjects.Tiger;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -31,7 +33,7 @@ public class ActionField extends JPanel {
     public ActionField()throws Exception {
         battleField = new BattleField(this);
         defender = new T34(battleField);
-        agressor = new BT7(battleField, AbstractTank.POSITION[(int)(Math.random()*3)],0, Direction.DOWN);
+        agressor = new Tiger(battleField, AbstractTank.POSITION[(int)(Math.random()*3)],0, Direction.DOWN);
         bullet = new Bullet(-100, -100, Direction.UP, this.defender);
 
         JFrame frame = new JFrame("BATTLE FIELD, DAY 2");
@@ -44,14 +46,14 @@ public class ActionField extends JPanel {
     }
 
     public void runTheGame() throws Exception {
-//Action[]a = new Action[]{Action.NONE, Action.MOVE_UP, Action.MOVE_DOWN, Action.MOVE_LEFT, Action.MOVE_RIGHT, Action.FIRE};
-Thread.sleep(10000);
+        Thread.sleep(1000);
         while(true){
-//            agressor.setAction(a[(int)(Math.random() * 6)]);
-//            tankAction(agressor);
             if(this.getBattleField().getBattleField()[8][4] instanceof Eagle) {
-                agressor.setAction(agressor.eagleDestroyAlgoritm());
-                tankAction(agressor);
+                Iterator<Action> b = agressor.getPath().iterator();
+                while (b.hasNext()){
+                    agressor.setAction(b.next());
+                    tankAction(agressor);
+                }
             }
             else {
                 break;
@@ -87,7 +89,7 @@ Thread.sleep(10000);
                 return true;
             }
             else if (getQuadrant(defender.getX(), defender.getY()).equals(getQuadrant(bullet.getX(), bullet.getY()))) {
-                agressor.destroy();
+                defender.destroy();
                 return true;
             } else {
                 return false;
